@@ -6,19 +6,19 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
-    "@vue/eslint-config-prettier",
+    "@vue/eslint-config-prettier"
   ],
   overrides: [
     {
       files: ["cypress/e2e/**.{cy,spec}.{js,ts,jsx,tsx}"],
-      extends: ["plugin:cypress/recommended"],
-    },
+      extends: ["plugin:cypress/recommended"]
+    }
   ],
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: "latest"
   },
   rules: {
-    semicolon: false,
-    "vue/multi-word-component-names": "off",
-  },
+    semicolon: 0,
+    "vue/multi-word-component-names": "off"
+  }
 }

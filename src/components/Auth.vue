@@ -63,107 +63,110 @@
           </ul>
 
           <!-- Login Form -->
-          <keep-alive>
-            <form v-if="tab === 'login'">
-              <!-- Email -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Email</label>
-                <input
-                  type="email"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Enter Email"
-                  v-model="email"
-                />
-              </div>
-              <!-- Password -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Password</label>
-                <input
-                  type="password"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Password"
-                />
-              </div>
-              <button
-                type="submit"
-                class="block w-full rounded bg-purple-600 py-1.5 px-3 text-white transition hover:bg-purple-700"
+          <!-- <keep-alive> -->
+          <form v-if="tab === 'login'">
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Email</label>
+              <input
+                type="email"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Enter Email"
+                v-model="email"
+              />
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Password</label>
+              <input
+                type="password"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Password"
+              />
+            </div>
+            <button
+              type="submit"
+              class="block w-full rounded bg-purple-600 py-1.5 px-3 text-white transition hover:bg-purple-700"
+            >
+              Submit
+            </button>
+          </form>
+          <!-- Registration Form -->
+
+          <VeeForm v-else :validationSchema="schema">
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Name</label>
+              <VeeField
+                name="name"
+                type="text"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Enter Name"
+              />
+              <ErrorMessage class="text-red-600" name="name" />
+            </div>
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Email</label>
+              <input
+                type="email"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Enter Email"
+              />
+            </div>
+            <!-- Age -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Age</label>
+              <input
+                type="number"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+              />
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Password</label>
+              <input
+                type="password"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Password"
+              />
+            </div>
+            <!-- Confirm Password -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Confirm Password</label>
+              <input
+                type="password"
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <!-- Country -->
+            <div class="mb-3">
+              <label class="mb-2 inline-block">Country</label>
+              <select
+                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
               >
-                Submit
-              </button>
-            </form>
-            <!-- Registration Form -->
-            <form v-else>
-              <!-- Name -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Name</label>
-                <input
-                  type="text"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Enter Name"
-                />
-              </div>
-              <!-- Email -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Email</label>
-                <input
-                  type="email"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Enter Email"
-                />
-              </div>
-              <!-- Age -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Age</label>
-                <input
-                  type="number"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                />
-              </div>
-              <!-- Password -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Password</label>
-                <input
-                  type="password"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Password"
-                />
-              </div>
-              <!-- Confirm Password -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Confirm Password</label>
-                <input
-                  type="password"
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                  placeholder="Confirm Password"
-                />
-              </div>
-              <!-- Country -->
-              <div class="mb-3">
-                <label class="mb-2 inline-block">Country</label>
-                <select
-                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                >
-                  <option value="USA">USA</option>
-                  <option value="Mexico">Mexico</option>
-                  <option value="Germany">Germany</option>
-                </select>
-              </div>
-              <!-- TOS -->
-              <div class="mb-3 pl-6">
-                <input
-                  type="checkbox"
-                  class="float-left -ml-6 mt-1 h-4 w-4 rounded"
-                />
-                <label class="inline-block">Accept terms of service</label>
-              </div>
-              <button
-                type="submit"
-                class="block w-full rounded bg-purple-600 py-1.5 px-3 text-white transition hover:bg-purple-700"
-              >
-                Submit
-              </button>
-            </form>
-          </keep-alive>
+                <option value="USA">USA</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Germany">Germany</option>
+              </select>
+            </div>
+            <!-- TOS -->
+            <div class="mb-3 pl-6">
+              <input
+                type="checkbox"
+                class="float-left -ml-6 mt-1 h-4 w-4 rounded"
+              />
+              <label class="inline-block">Accept terms of service</label>
+            </div>
+            <button
+              type="submit"
+              class="block w-full rounded bg-purple-600 py-1.5 px-3 text-white transition hover:bg-purple-700"
+            >
+              Submit
+            </button>
+          </VeeForm>
+          <!-- </keep-alive> -->
         </div>
       </div>
     </div>
@@ -179,4 +182,14 @@ const { hiddenClass, isOpen } = storeToRefs(useModalStore())
 const tab = ref("login")
 
 const email = ref("")
+
+const schema = {
+  name: "required|min:3|max:100|alpha_spaces",
+  email: "",
+  age: "",
+  password: "",
+  confirmPassword: "",
+  country: "",
+  tos: ""
+}
 </script>
