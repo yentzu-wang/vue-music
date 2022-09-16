@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
-    "@vue/eslint-config-prettier"
+    "@vue/eslint-config-prettier",
+    "@vue/typescript/recommended"
   ],
   overrides: [
     {
@@ -20,5 +21,10 @@ module.exports = {
   rules: {
     semicolon: 0,
     "vue/multi-word-component-names": "off"
+  },
+  env: {
+    browser: true,
+    es6: true,
+    node: true
   }
 }

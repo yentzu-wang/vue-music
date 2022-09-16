@@ -1,3 +1,4 @@
+import { App } from "vue"
 import {
   Form as VeeForm,
   Field as VeeField,
@@ -17,7 +18,7 @@ import {
 } from "@vee-validate/rules"
 
 export default {
-  install(app) {
+  install(app: App<Element>) {
     app.component("VeeForm", VeeForm)
     app.component("VeeField", VeeField)
     app.component("ErrorMessage", ErrorMessage)
