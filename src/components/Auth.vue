@@ -13,9 +13,9 @@
       </div>
 
       <!-- This element is to trick the browser into centering the modal contents. -->
-      <span class="hidden sm:inline-block sm:h-screen sm:align-middle"
-        >&#8203;</span
-      >
+      <span class="hidden sm:inline-block sm:h-screen sm:align-middle">
+        &#8203;
+      </span>
 
       <div
         class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
@@ -45,8 +45,9 @@
                   'bg-blue-600 text-white hover:text-white': tab === 'login',
                   'hover:text-blue-600': tab === 'register'
                 }"
-                >Login</a
               >
+                Login
+              </a>
             </li>
             <li class="flex-auto text-center">
               <a
@@ -57,8 +58,9 @@
                   'bg-blue-600 text-white hover:text-white': tab === 'register',
                   'hover:text-blue-600': tab === 'login'
                 }"
-                >Register</a
               >
+                Register
+              </a>
             </li>
           </ul>
 
@@ -131,10 +133,19 @@
               <label class="mb-2 inline-block">Password</label>
               <VeeField
                 name="password"
-                type="password"
-                class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                placeholder="Password"
-              />
+                :bails="false"
+                v-slot="{ field, errors }"
+              >
+                <input
+                  class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
+                  type="password"
+                  placeholder="Password"
+                  v-bind="field"
+                />
+                <div v-for="error in errors" :key="error" class="text-red-600">
+                  {{ error }}
+                </div>
+              </VeeField>
               <ErrorMessage class="block text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
@@ -200,7 +211,7 @@ const schema = {
   name: "required|min:3|max:100|alpha_spaces",
   email: "required|min:3|max:100|email",
   age: "required|min_value:18|max_value:100",
-  password: "required|min:3|max:100",
+  password: "required|min:9|max:100|excluded:password",
   confirmPassword: "confirmed:@password",
   country: "required|excluded:Antarctica",
   tos: "required"
