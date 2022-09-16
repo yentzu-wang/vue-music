@@ -108,37 +108,45 @@
             <!-- Email -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Email</label>
-              <input
+              <VeeField
+                name="email"
                 type="email"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Enter Email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Age -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Age</label>
-              <input
+              <VeeField
+                name="age"
                 type="number"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
               />
+              <ErrorMessage class="text-red-600" name="age" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Password</label>
-              <input
+              <VeeField
+                name="password"
                 type="password"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Confirm Password</label>
-              <input
+              <VeeField
+                name="confirmPassword"
                 type="password"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Confirm Password"
               />
+              <ErrorMessage class="text-red-600" name="confirmPassword" />
             </div>
             <!-- Country -->
             <div class="mb-3">
@@ -185,10 +193,10 @@ const email = ref("")
 
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
-  email: "",
-  age: "",
-  password: "",
-  confirmPassword: "",
+  email: "required|min:3|max:100|email",
+  age: "required|min_value:18|max_value:100",
+  password: "required|min:3|max:100",
+  confirmPassword: "confirmed:@password",
   country: "",
   tos: ""
 }
