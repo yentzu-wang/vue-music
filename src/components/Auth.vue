@@ -93,6 +93,7 @@
               Submit
             </button>
           </form>
+
           <!-- Registration Form -->
           <VeeForm
             v-else
@@ -100,6 +101,13 @@
             @submit="register"
             :initialValues="userData"
           >
+            <div
+              v-if="regShowAlert"
+              class="mb-4 rounded p-4 text-center font-bold text-white"
+              :class="regAlertVariant"
+            >
+              {{ regAlertMsg }}
+            </div>
             <!-- Name -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Name</label>
@@ -192,6 +200,7 @@
             <button
               type="submit"
               class="block w-full rounded bg-purple-600 py-1.5 px-3 text-white transition hover:bg-purple-700"
+              :disabled="regInSubmission"
             >
               Submit
             </button>
@@ -225,7 +234,20 @@ const userData = {
   country: "USA"
 }
 
+const regInSubmission = ref(false)
+const regShowAlert = ref(false)
+const regAlertVariant = ref("bg-blue-500")
+const regAlertMsg = ref("Please wait! Your account is being created.")
+
 const register = (values) => {
+  regShowAlert.value = true
+  regInSubmission.value = true
+  regAlertVariant.value = "bg-blue-500"
+  regAlertMsg.value = "Please wait! Your account is being created."
+
+  regAlertVariant.value = "bg-green-500"
+  regAlertMsg.value = "Succcess! Your account has been created."
+
   console.log(values)
 }
 </script>
