@@ -93,7 +93,7 @@
           </form>
           <!-- Registration Form -->
 
-          <VeeForm v-else :validationSchema="schema">
+          <VeeForm v-else :validationSchema="schema" @submit="register">
             <!-- Name -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Name</label>
@@ -114,7 +114,7 @@
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Enter Email"
               />
-              <ErrorMessage class="text-red-600" name="email" />
+              <ErrorMessage class="block text-red-600" name="email" />
             </div>
             <!-- Age -->
             <div class="mb-3">
@@ -124,7 +124,7 @@
                 type="number"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
               />
-              <ErrorMessage class="text-red-600" name="age" />
+              <ErrorMessage class="block text-red-600" name="age" />
             </div>
             <!-- Password -->
             <div class="mb-3">
@@ -135,7 +135,7 @@
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Password"
               />
-              <ErrorMessage class="text-red-600" name="password" />
+              <ErrorMessage class="block text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
@@ -146,26 +146,33 @@
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
                 placeholder="Confirm Password"
               />
-              <ErrorMessage class="text-red-600" name="confirmPassword" />
+              <ErrorMessage class="block text-red-600" name="confirmPassword" />
             </div>
             <!-- Country -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Country</label>
-              <select
+              <VeeField
+                name="country"
+                as="select"
                 class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
               >
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
-              </select>
+                <option value="Antarctica">Antarctica</option>
+              </VeeField>
+              <ErrorMessage class="block text-red-600" name="country" />
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input
+              <VeeField
+                name="tos"
+                value="1"
                 type="checkbox"
                 class="float-left -ml-6 mt-1 h-4 w-4 rounded"
               />
               <label class="inline-block">Accept terms of service</label>
+              <ErrorMessage class="block text-red-600" name="tos" />
             </div>
             <button
               type="submit"
@@ -189,15 +196,17 @@ import { useModalStore } from "@/stores/modal"
 const { hiddenClass, isOpen } = storeToRefs(useModalStore())
 const tab = ref("login")
 
-const email = ref("")
-
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
   email: "required|min:3|max:100|email",
   age: "required|min_value:18|max_value:100",
   password: "required|min:3|max:100",
   confirmPassword: "confirmed:@password",
-  country: "",
-  tos: ""
+  country: "required|excluded:Antarctica",
+  tos: "required"
+}
+
+const register = (values) => {
+  console.log(values)
 }
 </script>
