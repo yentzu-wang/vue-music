@@ -94,8 +94,12 @@
             </button>
           </form>
           <!-- Registration Form -->
-
-          <VeeForm v-else :validationSchema="schema" @submit="register">
+          <VeeForm
+            v-else
+            :validationSchema="schema"
+            @submit="register"
+            :initialValues="userData"
+          >
             <!-- Name -->
             <div class="mb-3">
               <label class="mb-2 inline-block">Name</label>
@@ -212,9 +216,13 @@ const schema = {
   email: "required|min:3|max:100|email",
   age: "required|min_value:18|max_value:100",
   password: "required|min:9|max:100|excluded:password",
-  confirmPassword: "confirmed:@password",
-  country: "required|excluded:Antarctica",
-  tos: "required"
+  confirmPassword: "passwords_mismatch:@password",
+  country: "required|country_excluded:Antarctica",
+  tos: "tos"
+}
+
+const userData = {
+  country: "USA"
 }
 
 const register = (values) => {
