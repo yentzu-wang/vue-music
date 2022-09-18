@@ -108,7 +108,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
+import { storeToRefs } from "pinia"
 import { auth, usersCollection } from "@/includes/firebase"
+import { useUserStore } from "@/stores/user"
 
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
@@ -128,6 +130,7 @@ const regInSubmission = ref(false)
 const regShowAlert = ref(false)
 const regAlertVariant = ref("bg-blue-500")
 const regAlertMsg = ref("Please wait! Your account is being created.")
+const { userLoggedIn } = storeToRefs(useUserStore())
 
 const register = async ({
   name,
@@ -169,8 +172,11 @@ const register = async ({
     return
   }
 
+  userLoggedIn.value = true
+
   regAlertVariant.value = "bg-green-500"
   regAlertMsg.value = "Succcess! Your account has been created."
   console.log(userCred)
+  console.log(userLoggedIn.value)
 }
 </script>
