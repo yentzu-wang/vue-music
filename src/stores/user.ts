@@ -27,5 +27,16 @@ export const useUserStore = defineStore("user", () => {
     userLoggedIn.value = true
   }
 
-  return { userLoggedIn, register }
+  async function authenticate({
+    email,
+    password
+  }: {
+    email: string
+    password: string
+  }) {
+    await auth.signInWithEmailAndPassword(email, password)
+    userLoggedIn.value = true
+  }
+
+  return { userLoggedIn, register, authenticate }
 })

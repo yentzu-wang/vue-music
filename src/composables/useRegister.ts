@@ -1,5 +1,4 @@
 import { ref } from "vue"
-import { storeToRefs } from "pinia"
 import { useUserStore } from "@/stores/user"
 
 const useRegister = () => {
@@ -8,8 +7,6 @@ const useRegister = () => {
   const regAlertVariant = ref("bg-blue-500")
   const regAlertMsg = ref("Please wait! Your account is being created.")
   const store = useUserStore()
-
-  const { userLoggedIn } = storeToRefs(store)
 
   const register = async (values: {
     name: string

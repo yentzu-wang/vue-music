@@ -40,27 +40,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { useLogin } from "@/composables/useLogin"
 
 const loginSchema = {
   email: "required|email",
   password: "required|min:9|max:100"
 }
 
-const loginInSubmission = ref(false)
-const loginShowAlert = ref(false)
-const loginAlertVariant = ref("bg-blue-500")
-const loginAlertMsg = ref("Please wait! Your account is being created.")
-
-const login = (values) => {
-  loginShowAlert.value = true
-  loginInSubmission.value = true
-  loginAlertVariant.value = "bg-blue-500"
-  loginAlertMsg.value = "Please wait! We are logging you in."
-
-  loginAlertVariant.value = "bg-green-500"
-  loginAlertMsg.value = "Succcess! You are now logged in."
-
-  console.log(values)
-}
+const {
+  login,
+  loginInSubmission,
+  loginShowAlert,
+  loginAlertMsg,
+  loginAlertVariant
+} = useLogin()
 </script>
