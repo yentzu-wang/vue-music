@@ -19,6 +19,7 @@ export const useLogin = () => {
 
       loginAlertVariant.value = "bg-green-500"
       loginAlertMsg.value = "Succcess! You are now logged in."
+      window.location.reload()
     } catch (error) {
       loginInSubmission.value = false
       loginAlertVariant.value = "bg-red-500"

@@ -4,11 +4,16 @@ import { useUserStore } from "@/stores/user"
 import { auth } from "@/includes/firebase"
 
 export const useAuth = () => {
-  const { userLoggedIn } = storeToRefs(useUserStore())
+  const store = useUserStore()
+  const { userLoggedIn } = storeToRefs(store)
+
+  const signOut = store.signOut
 
   onMounted(() => {
-    if (auth.currentUser) {
+    if (auth.currentUser && userLoggedIn.value !== true) {
       userLoggedIn.value = true
     }
   })
+
+  return { userLoggedIn, signOut }
 }

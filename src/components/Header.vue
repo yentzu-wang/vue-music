@@ -9,14 +9,19 @@
         <!-- Primary Navigation -->
         <ul class="mt-1 flex flex-row">
           <!-- Navigation Links -->
-          <li>
+          <li v-if="!userLoggedIn">
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
               >Login / Register</a
             >
           </li>
-          <li>
-            <a class="px-2 text-white" href="#">Manage</a>
-          </li>
+          <template v-else>
+            <li>
+              <a class="px-2 text-white" href="#">Manage</a>
+            </li>
+            <li>
+              <a class="px-2 text-white" href="#" @click="signOut">Logout</a>
+            </li>
+          </template>
         </ul>
       </div>
     </nav>
@@ -24,21 +29,9 @@
 </template>
 
 <script setup>
-// import { storeToRefs } from "pinia"
-import { useModalStore } from "@/stores/modal"
+import { useAuthModal } from "@/composables/useAuthModal"
+import { useAuth } from "@/composables/useAuth"
 
-const store = useModalStore()
-
-// const { isOpen } = storeToRefs(store)
-
-const toggleAuthModal = () => {
-  store.isOpen = !store.isOpen
-  // store.$patch((state) => {
-  //   state.isOpen = !state.isOpen
-  // })
-
-  // isOpen.value = !isOpen.value
-
-  // console.log(store.isOpen)
-}
+const { toggleAuthModal } = useAuthModal()
+const { userLoggedIn, signOut } = useAuth()
 </script>

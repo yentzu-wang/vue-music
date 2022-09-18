@@ -38,5 +38,10 @@ export const useUserStore = defineStore("user", () => {
     userLoggedIn.value = true
   }
 
-  return { userLoggedIn, register, authenticate }
+  async function signOut() {
+    await auth.signOut()
+    userLoggedIn.value = false
+  }
+
+  return { userLoggedIn, register, authenticate, signOut }
 })
