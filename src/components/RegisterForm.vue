@@ -108,7 +108,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { auth } from "@/includes/firebase"
+import { auth, usersCollection } from "@/includes/firebase"
 
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
@@ -130,11 +130,17 @@ const regAlertVariant = ref("bg-blue-500")
 const regAlertMsg = ref("Please wait! Your account is being created.")
 
 const register = async ({
+  name,
   email,
-  password
+  password,
+  age,
+  country
 }: {
+  name: string
   email: string
   password: string
+  age: number
+  country: string
 }) => {
   regShowAlert.value = true
   regInSubmission.value = true
@@ -145,6 +151,16 @@ const register = async ({
 
   try {
     userCred = await auth.createUserWithEmailAndPassword(email, password)
+  } catch (error) {
+    regInSubmission.value = false
+    regAlertVariant.value = "bg-red-500"
+    regAlertMsg.value = "An unexpected error occured. Please try again later."
+
+    return
+  }
+
+  try {
+    await usersCollection.add({ name, email, age, country })
   } catch (error) {
     regInSubmission.value = false
     regAlertVariant.value = "bg-red-500"
