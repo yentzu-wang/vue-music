@@ -18,8 +18,11 @@ export const useUserStore = defineStore("user", () => {
     age: number
     country: string
   }) {
-    await auth.createUserWithEmailAndPassword(email, password)
-    await usersCollection.add({ name, email, age, country })
+    const userCred = await auth.createUserWithEmailAndPassword(email, password)
+    await usersCollection
+      .doc(userCred.user?.uid)
+      .set({ name, email, age, country })
+    await userCred.user?.updateProfile({ displayName: name })
 
     userLoggedIn.value = true
   }
