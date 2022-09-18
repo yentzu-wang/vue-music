@@ -107,10 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { storeToRefs } from "pinia"
-import { auth, usersCollection } from "@/includes/firebase"
-import { useUserStore } from "@/stores/user"
+import useRegister from "@/composables/useRegister"
 
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
@@ -121,62 +118,14 @@ const schema = {
   country: "required|country_excluded:Antarctica",
   tos: "tos"
 }
-
 const userData = {
   country: "USA"
 }
-
-const regInSubmission = ref(false)
-const regShowAlert = ref(false)
-const regAlertVariant = ref("bg-blue-500")
-const regAlertMsg = ref("Please wait! Your account is being created.")
-const { userLoggedIn } = storeToRefs(useUserStore())
-
-const register = async ({
-  name,
-  email,
-  password,
-  age,
-  country
-}: {
-  name: string
-  email: string
-  password: string
-  age: number
-  country: string
-}) => {
-  regShowAlert.value = true
-  regInSubmission.value = true
-  regAlertVariant.value = "bg-blue-500"
-  regAlertMsg.value = "Please wait! Your account is being created."
-
-  let userCred = null
-
-  try {
-    userCred = await auth.createUserWithEmailAndPassword(email, password)
-  } catch (error) {
-    regInSubmission.value = false
-    regAlertVariant.value = "bg-red-500"
-    regAlertMsg.value = "An unexpected error occured. Please try again later."
-
-    return
-  }
-
-  try {
-    await usersCollection.add({ name, email, age, country })
-  } catch (error) {
-    regInSubmission.value = false
-    regAlertVariant.value = "bg-red-500"
-    regAlertMsg.value = "An unexpected error occured. Please try again later."
-
-    return
-  }
-
-  userLoggedIn.value = true
-
-  regAlertVariant.value = "bg-green-500"
-  regAlertMsg.value = "Succcess! Your account has been created."
-  console.log(userCred)
-  console.log(userLoggedIn.value)
-}
+const {
+  register,
+  regShowAlert,
+  regAlertVariant,
+  regAlertMsg,
+  regInSubmission
+} = useRegister()
 </script>
