@@ -3,8 +3,11 @@
   <header id="header" class="bg-gray-700">
     <nav class="container mx-auto flex items-center justify-start py-5 px-4">
       <!-- App Name -->
-      <a class="mr-4 text-2xl font-bold uppercase text-white" href="#">Music</a>
-
+      <router-link
+        class="mr-4 text-2xl font-bold uppercase text-white"
+        to="/about"
+        >Music</router-link
+      >
       <div class="flex flex-grow items-center">
         <!-- Primary Navigation -->
         <ul class="mt-1 flex flex-row">
