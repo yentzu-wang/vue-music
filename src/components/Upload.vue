@@ -55,6 +55,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue"
+import { storage } from "@/includes/firebase"
 
 const isDragOver = ref(false)
 
@@ -67,6 +68,10 @@ const upload = (e: DragEvent) => {
       console.log("Only mp3 files are allowed")
       return
     }
+
+    const storageRef = storage.ref()
+    const songsRef = storageRef.child(`songs/${file.name}`)
+    songsRef.put(file)
   })
 }
 </script>
