@@ -95,18 +95,20 @@
                       placeholder="Enter Genre"
                     />
                   </div>
-                  <button
-                    type="submit"
-                    class="rounded bg-green-600 py-1.5 px-3 text-white"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    class="rounded bg-gray-600 py-1.5 px-3 text-white"
-                  >
-                    Go Back
-                  </button>
+                  <div class="space-x-2">
+                    <button
+                      type="submit"
+                      class="rounded bg-green-600 py-1.5 px-3 text-white"
+                    >
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      class="rounded bg-gray-600 py-1.5 px-3 text-white"
+                    >
+                      Go Back
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

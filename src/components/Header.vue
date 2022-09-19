@@ -5,7 +5,7 @@
       <!-- App Name -->
       <router-link
         class="mr-4 text-2xl font-bold uppercase text-white"
-        to="/"
+        :to="{ name: 'home' }"
         exact-active-class="no-active"
       >
         Music
@@ -14,7 +14,9 @@
         <!-- Primary Navigation -->
         <ul class="mt-1 flex flex-row">
           <li>
-            <router-link class="px-2 text-white" to="/about">About</router-link>
+            <router-link class="px-2 text-white" :to="{ name: 'about' }">
+              About
+            </router-link>
           </li>
           <!-- Navigation Links -->
           <li v-if="!userLoggedIn">
@@ -28,7 +30,7 @@
           </li>
           <template v-else>
             <li>
-              <router-link class="px-2 text-white" to="/manage">
+              <router-link class="px-2 text-white" :to="{ name: 'manage' }">
                 Manage
               </router-link>
             </li>
