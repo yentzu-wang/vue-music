@@ -8,6 +8,14 @@
       <!-- Upload Dropbox -->
       <div
         class="w-full cursor-pointer rounded border border-dashed border-gray-400 px-10 py-20 text-center text-gray-400 transition duration-500 hover:border-solid hover:border-green-400 hover:bg-green-400 hover:text-white"
+        :class="{ 'border-solid border-green-400 bg-green-400': isDragOver }"
+        @drag.prevent.stop=""
+        @dragstart.prevent.stop=""
+        @dragend.prevent.stop="isDragOver = false"
+        @dragover.prevent.stop="isDragOver = true"
+        @dragenter.prevent.stop="isDragOver = true"
+        @dragleave.prevent.stop="isDragOver = false"
+        @drop.prevent.stop="upload"
       >
         <h5>Drop your files here</h5>
       </div>
@@ -45,3 +53,12 @@
     </div>
   </div>
 </template>
+<script setup>
+import { ref } from "vue"
+
+const isDragOver = ref(false)
+
+const upload = () => {
+  isDragOver.value = false
+}
+</script>

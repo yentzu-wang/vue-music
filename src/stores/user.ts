@@ -1,6 +1,6 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
-import { useRouter, useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { auth, usersCollection } from "@/includes/firebase"
 
 export const useUserStore = defineStore("user", () => {
