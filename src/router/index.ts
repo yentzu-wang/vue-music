@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 import Home from "@/views/Home.vue"
+import { useProtectedContent } from "@/composables/useProtectedContent"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,11 +23,16 @@ const router = createRouter({
       path: "/manage-music",
       // alias: "/manage",
       name: "manage",
-      component: () => import("@/views/Manage.vue")
+      component: () => import("@/views/Manage.vue"),
+      beforeEnter: useProtectedContent
     },
     { path: "/manage", redirect: { name: "manage" } },
     { path: "/:catchAll(.*)*", redirect: { name: "home" } }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  next()
 })
 
 export default router
