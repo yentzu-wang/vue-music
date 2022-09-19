@@ -21,32 +21,15 @@
       </div>
       <hr class="my-6" />
       <!-- Progess Bars -->
-      <div class="mb-4">
+      <div v-for="{ name, progress } in uploads" :key="name" class="mb-4">
         <!-- File Name -->
-        <div class="text-sm font-bold">Just another song.mp3</div>
+        <div class="text-sm font-bold">{{ name }}</div>
         <div class="flex h-4 overflow-hidden rounded bg-gray-200">
           <!-- Inner Progress Bar -->
           <div
             class="progress-bar bg-blue-400 transition-all"
-            style="width: 75%"
-          ></div>
-        </div>
-      </div>
-      <div class="mb-4">
-        <div class="text-sm font-bold">Just another song.mp3</div>
-        <div class="flex h-4 overflow-hidden rounded bg-gray-200">
-          <div
-            class="progress-bar bg-blue-400 transition-all"
-            style="width: 35%"
-          ></div>
-        </div>
-      </div>
-      <div class="mb-4">
-        <div class="text-sm font-bold">Just another song.mp3</div>
-        <div class="flex h-4 overflow-hidden rounded bg-gray-200">
-          <div
-            class="progress-bar bg-blue-400 transition-all"
-            style="width: 55%"
+            :class="'bg-blue-400'"
+            :style="{ width: `${progress}%` }"
           ></div>
         </div>
       </div>
@@ -54,10 +37,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue"
-import { storage } from "@/includes/firebase"
+import { ref, reactive } from "vue"
+import { storage, UploadTask } from "@/includes/firebase"
 
 const isDragOver = ref(false)
+const uploads = reactive<
+  { task: UploadTask; name: string; progress: number }[]
+>([])
 
 const upload = (e: DragEvent) => {
   isDragOver.value = false
@@ -71,7 +57,28 @@ const upload = (e: DragEvent) => {
 
     const storageRef = storage.ref()
     const songsRef = storageRef.child(`songs/${file.name}`)
-    songsRef.put(file)
+    const task = songsRef.put(file)
+
+    const uploadIndex =
+      uploads.push({
+        task,
+        name: file.name,
+        progress: 0
+      }) - 1
+
+    task.on(
+      "state_changed",
+      (snapshot) => {
+        uploads[uploadIndex].progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      },
+      function error(err) {
+        console.log(err)
+      },
+      function complete() {
+        console.log("Upload complete")
+      }
+    )
   })
 }
 </script>
