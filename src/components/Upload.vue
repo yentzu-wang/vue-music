@@ -53,12 +53,20 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 
 const isDragOver = ref(false)
 
-const upload = () => {
+const upload = (e: DragEvent) => {
   isDragOver.value = false
+  const files = e.dataTransfer ? [...e.dataTransfer.files] : []
+
+  files.forEach((file) => {
+    if (file.type !== "audio/mpeg") {
+      console.log("Only mp3 files are allowed")
+      return
+    }
+  })
 }
 </script>
