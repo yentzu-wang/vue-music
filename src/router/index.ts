@@ -24,15 +24,15 @@ const router = createRouter({
       // alias: "/manage",
       name: "manage",
       component: () => import("@/views/Manage.vue"),
-      beforeEnter: useProtectedContent
+      meta: {
+        requiresAuth: true
+      }
     },
     { path: "/manage", redirect: { name: "manage" } },
     { path: "/:catchAll(.*)*", redirect: { name: "home" } }
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  next()
-})
+router.beforeEach(useProtectedContent)
 
 export default router

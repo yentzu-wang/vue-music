@@ -45,7 +45,7 @@ export const useUserStore = defineStore("user", () => {
     await auth.signOut()
     userLoggedIn.value = false
 
-    if (route.name === "manage") {
+    if (route.meta?.requiresAuth) {
       router.push({ name: "home" })
     }
   }
