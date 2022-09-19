@@ -1,8 +1,11 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
+import { useRouter, useRoute } from "vue-router"
 import { auth, usersCollection } from "@/includes/firebase"
 
 export const useUserStore = defineStore("user", () => {
+  const router = useRouter()
+  const route = useRoute()
   const userLoggedIn = ref(false)
 
   async function register({
@@ -41,6 +44,10 @@ export const useUserStore = defineStore("user", () => {
   async function signOut() {
     await auth.signOut()
     userLoggedIn.value = false
+
+    if (route.name === "manage") {
+      router.push({ name: "home" })
+    }
   }
 
   return { userLoggedIn, register, authenticate, signOut }
