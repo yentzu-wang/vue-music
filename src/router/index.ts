@@ -20,6 +20,7 @@ const router = createRouter({
     },
     {
       path: "/manage-music",
+      // alias: "/manage",
       name: "manage",
       component: () => import("@/views/Manage.vue")
     },
