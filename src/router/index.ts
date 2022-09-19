@@ -19,10 +19,12 @@ const router = createRouter({
       component: () => import("@/views/About.vue")
     },
     {
-      path: "/manage",
+      path: "/manage-music",
       name: "manage",
       component: () => import("@/views/Manage.vue")
-    }
+    },
+    { path: "/manage", redirect: { name: "manage" } },
+    { path: "/:catchAll(.*)*", redirect: { name: "home" } }
   ]
 })
 
