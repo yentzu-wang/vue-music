@@ -5,21 +5,32 @@
       <!-- App Name -->
       <router-link
         class="mr-4 text-2xl font-bold uppercase text-white"
-        to="/about"
-        >Music</router-link
+        to="/"
+        exact-active-class="no-active"
       >
+        Music
+      </router-link>
       <div class="flex flex-grow items-center">
         <!-- Primary Navigation -->
         <ul class="mt-1 flex flex-row">
+          <li>
+            <router-link class="px-2 text-white" to="/about">About</router-link>
+          </li>
           <!-- Navigation Links -->
           <li v-if="!userLoggedIn">
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
-              >Login / Register</a
+            <a
+              class="px-2 text-white"
+              href="#"
+              @click.prevent="toggleAuthModal"
             >
+              Login / Register
+            </a>
           </li>
           <template v-else>
             <li>
-              <a class="px-2 text-white" href="#">Manage</a>
+              <router-link class="px-2 text-white" to="/manage">
+                Manage
+              </router-link>
             </li>
             <li>
               <a class="px-2 text-white" href="#" @click="signOut">Logout</a>
