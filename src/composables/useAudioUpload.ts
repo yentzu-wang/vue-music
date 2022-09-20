@@ -1,4 +1,4 @@
-import { ref, reactive } from "vue"
+import { ref, reactive, onBeforeUnmount } from "vue"
 import { storage, UploadTask, auth, songsCollection } from "@/includes/firebase"
 
 export const useAudioUpload = () => {
@@ -82,6 +82,12 @@ export const useAudioUpload = () => {
       )
     })
   }
+
+  onBeforeUnmount(() => {
+    uploads.forEach((upload) => {
+      upload.task.cancel()
+    })
+  })
 
   return { isDragOver, uploads, upload, dragUpload }
 }

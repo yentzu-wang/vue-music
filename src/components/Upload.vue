@@ -44,7 +44,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { useAudioUpload } from "@/composables/useAudioUpload"
 
 const { isDragOver, uploads, upload, dragUpload } = useAudioUpload()
