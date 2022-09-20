@@ -16,116 +16,7 @@
             ></i>
           </div>
           <div class="p-6">
-            <!-- Composition Items -->
-            <div class="mb-4 rounded border border-gray-200 p-3">
-              <div>
-                <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                <button
-                  class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-                <button
-                  class="float-right ml-1 rounded bg-blue-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </div>
-              <div>
-                <form>
-                  <div class="mb-3">
-                    <label class="mb-2 inline-block">Song Title</label>
-                    <input
-                      type="text"
-                      class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                      placeholder="Enter Song Title"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label class="mb-2 inline-block">Genre</label>
-                    <input
-                      type="text"
-                      class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
-                      placeholder="Enter Genre"
-                    />
-                  </div>
-                  <div class="space-x-2">
-                    <button
-                      type="submit"
-                      class="rounded bg-green-600 py-1.5 px-3 text-white"
-                    >
-                      Submit
-                    </button>
-                    <button
-                      type="button"
-                      class="rounded bg-gray-600 py-1.5 px-3 text-white"
-                    >
-                      Go Back
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="mb-4 rounded border border-gray-200 p-3">
-              <div>
-                <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                <button
-                  class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-                <button
-                  class="float-right ml-1 rounded bg-blue-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="mb-4 rounded border border-gray-200 p-3">
-              <div>
-                <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                <button
-                  class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-                <button
-                  class="float-right ml-1 rounded bg-blue-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="mb-4 rounded border border-gray-200 p-3">
-              <div>
-                <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                <button
-                  class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-                <button
-                  class="float-right ml-1 rounded bg-blue-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="mb-4 rounded border border-gray-200 p-3">
-              <div>
-                <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                <button
-                  class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-                <button
-                  class="float-right ml-1 rounded bg-blue-600 py-1 px-2 text-sm text-white"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </div>
-            </div>
+            <CompositionItem v-for="song in songs" :key="song.docId" />
           </div>
         </div>
       </div>
@@ -135,4 +26,8 @@
 
 <script setup>
 import Upload from "@/components/Upload.vue"
+import CompositionItem from "@/components/CompositionItem.vue"
+import { useAudioData } from "@/composables/useAudioData"
+
+const { songs } = useAudioData()
 </script>

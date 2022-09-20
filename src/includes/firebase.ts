@@ -16,6 +16,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 type UploadTask = firebase.storage.UploadTask
+type DocumentData = firebase.firestore.DocumentData
 
 const auth = firebase.auth()
 const db = firebase.firestore()
@@ -23,4 +24,12 @@ const storage = firebase.storage()
 const usersCollection = db.collection("users")
 const songsCollection = db.collection("songs")
 
-export { auth, db, usersCollection, songsCollection, storage, UploadTask }
+export {
+  auth,
+  db,
+  usersCollection,
+  songsCollection,
+  storage,
+  UploadTask,
+  DocumentData
+}

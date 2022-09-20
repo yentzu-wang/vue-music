@@ -36,9 +36,8 @@ export const useAudioUpload = () => {
       }
 
       const storageRef = storage.ref()
-      const songsRef = storageRef.child(`songs/${file.name}`)
-      const task = songsRef.put(file)
-
+      const songRef = storageRef.child(`songs/${file.name}`)
+      const task = songRef.put(file)
       const uploadIndex =
         uploads.push({
           task,
