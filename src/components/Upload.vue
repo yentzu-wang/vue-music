@@ -45,7 +45,7 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from "vue"
-import { storage, UploadTask } from "@/includes/firebase"
+import { storage, UploadTask, auth, songsCollection } from "@/includes/firebase"
 
 type Upload = {
   task: UploadTask
@@ -95,7 +95,20 @@ const upload = (e: DragEvent) => {
         uploads[uploadIndex].textClass = "text-red-400"
         console.log(error)
       },
-      () => {
+      async () => {
+        const song = {
+          uid: auth.currentUser?.uid,
+          displayName: auth.currentUser?.displayName,
+          originalName: task.snapshot.ref.name,
+          modifiedName: task.snapshot.ref.name,
+          genre: "",
+          commentCount: 0,
+          url: ""
+        }
+
+        song.url = await task.snapshot.ref.getDownloadURL()
+        await songsCollection.add(song)
+
         uploads[uploadIndex].variant = "bg-green-400"
         uploads[uploadIndex].icon = "fas fa-check"
         uploads[uploadIndex].textClass = "text-green-400"
