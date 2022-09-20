@@ -1,11 +1,11 @@
 import { onMounted, reactive } from "vue"
 import { songsCollection, auth, DocumentData } from "@/includes/firebase"
 
-export const useAudioData = () => {
-  interface ISong extends DocumentData {
-    docId: string
-  }
+export interface ISong extends DocumentData {
+  docId: string
+}
 
+export const useAudioData = () => {
   const songs = reactive<ISong[]>([])
 
   onMounted(async () => {

@@ -47,3 +47,14 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { PropType } from "vue"
+import type { ISong } from "@/composables/useAudioData"
+
+const props = defineProps({
+  song: {
+    type: Object as PropType<ISong>,
+    required: true
+  }
+})
+</script>
