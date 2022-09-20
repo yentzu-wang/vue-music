@@ -89,11 +89,16 @@ const upload = (e: DragEvent) => {
         uploads[uploadIndex].progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       },
-      function error(err) {
-        console.log(err)
+      (error) => {
+        uploads[uploadIndex].variant = "bg-red-400"
+        uploads[uploadIndex].icon = "fas fa-times"
+        uploads[uploadIndex].textClass = "text-red-400"
+        console.log(error)
       },
-      function complete() {
-        console.log("Upload complete")
+      () => {
+        uploads[uploadIndex].variant = "bg-green-400"
+        uploads[uploadIndex].icon = "fas fa-check"
+        uploads[uploadIndex].textClass = "text-green-400"
       }
     )
   })
