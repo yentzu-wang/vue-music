@@ -21,14 +21,21 @@
       </div>
       <hr class="my-6" />
       <!-- Progess Bars -->
-      <div v-for="{ name, progress } in uploads" :key="name" class="mb-4">
+      <div
+        v-for="{ name, progress, variant, icon, textClass } in uploads"
+        :key="name"
+        class="mb-4"
+      >
         <!-- File Name -->
-        <div class="text-sm font-bold">{{ name }}</div>
+        <div class="text-sm font-bold" :class="textClass">
+          <i :class="icon" />
+          {{ name }}
+        </div>
         <div class="flex h-4 overflow-hidden rounded bg-gray-200">
           <!-- Inner Progress Bar -->
           <div
             class="progress-bar bg-blue-400 transition-all"
-            :class="'bg-blue-400'"
+            :class="variant"
             :style="{ width: `${progress}%` }"
           ></div>
         </div>
@@ -40,10 +47,17 @@
 import { ref, reactive } from "vue"
 import { storage, UploadTask } from "@/includes/firebase"
 
+type Upload = {
+  task: UploadTask
+  name: string
+  progress: number
+  variant: string
+  icon: string
+  textClass: string
+}
+
 const isDragOver = ref(false)
-const uploads = reactive<
-  { task: UploadTask; name: string; progress: number }[]
->([])
+const uploads = reactive<Upload[]>([])
 
 const upload = (e: DragEvent) => {
   isDragOver.value = false
@@ -63,7 +77,10 @@ const upload = (e: DragEvent) => {
       uploads.push({
         task,
         name: file.name,
-        progress: 0
+        progress: 0,
+        variant: "bg-blue-400",
+        icon: "fas fa-spinner fa-spin",
+        textClass: ""
       }) - 1
 
     task.on(
