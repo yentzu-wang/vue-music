@@ -8,7 +8,7 @@ export interface ISong extends DocumentData {
 export const useAudioData = () => {
   const songs = reactive<ISong[]>([])
 
-  onMounted(async () => {
+  async function fetchAudios() {
     const snapshot = await songsCollection
       .where("uid", "==", auth.currentUser?.uid)
       .get()
@@ -21,7 +21,13 @@ export const useAudioData = () => {
 
       songs.push(song)
     })
-  })
+  }
 
-  return { songs }
+  async function test() {
+    songs[0].modifiedName = "test"
+  }
+
+  onMounted(fetchAudios)
+
+  return { songs, fetchAudios, test }
 }
