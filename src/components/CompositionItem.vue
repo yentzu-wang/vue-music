@@ -15,14 +15,16 @@
       </button>
     </div>
     <div v-show="showForm">
-      <form>
+      <VeeForm :validationSchema="schema" :initialValues="song" @submit="edit">
         <div class="mb-3">
           <label class="mb-2 inline-block">Song Title</label>
-          <input
+          <VeeField
             class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
             type="text"
             placeholder="Enter Song Title"
+            name="modifiedName"
           />
+          <ErrorMessage class="text-red-600" name="modifiedName" />
         </div>
         <div class="mb-3">
           <label class="mb-2 inline-block">Genre</label>
@@ -30,7 +32,9 @@
             class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
             type="text"
             placeholder="Enter Genre"
+            name="genre"
           />
+          <ErrorMessage class="text-red-600" name="genre" />
         </div>
         <div class="space-x-2">
           <button
@@ -46,7 +50,7 @@
             Go Back
           </button>
         </div>
-      </form>
+      </VeeForm>
     </div>
   </div>
 </template>
@@ -54,12 +58,20 @@
 import { PropType, ref } from "vue"
 import type { ISong } from "@/composables/useAudioData"
 
-defineProps({
+const props = defineProps({
   song: {
     type: Object as PropType<ISong>,
     required: true
   }
 })
 
+const schema = {
+  modifiedName: "required",
+  genre: "alpha_spaces"
+}
 const showForm = ref(false)
+
+const edit = () => {
+  console.log(props)
+}
 </script>
