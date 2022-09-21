@@ -15,6 +15,13 @@
       </button>
     </div>
     <div v-show="showForm">
+      <div
+        class="mb-4 p-4 text-center font-bold text-white"
+        v-if="showAlert"
+        :class="alertVariant"
+      >
+        {{ alertMessage }}
+      </div>
       <VeeForm :validationSchema="schema" :initialValues="song" @submit="edit">
         <div class="mb-3">
           <label class="mb-2 inline-block">Song Title</label>
@@ -28,7 +35,7 @@
         </div>
         <div class="mb-3">
           <label class="mb-2 inline-block">Genre</label>
-          <input
+          <VeeField
             class="block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
             type="text"
             placeholder="Enter Genre"
@@ -40,12 +47,15 @@
           <button
             class="rounded bg-green-600 py-1.5 px-3 text-white"
             type="submit"
+            :disabled="inSubmittion"
           >
             Submit
           </button>
           <button
             class="rounded bg-gray-600 py-1.5 px-3 text-white"
             type="button"
+            :disabled="inSubmittion"
+            @click.prevent="showForm = false"
           >
             Go Back
           </button>
@@ -55,12 +65,29 @@
   </div>
 </template>
 <script setup lang="ts">
-import { PropType, ref } from "vue"
+import { PropType } from "vue"
+import { useAudioEdit } from "@/composables/useAudioEdit"
 import type { ISong } from "@/composables/useAudioData"
 
 const props = defineProps({
   song: {
     type: Object as PropType<ISong>,
+    required: true
+  },
+  updateSong: {
+    type: Function as PropType<
+      (
+        i: number,
+        values: {
+          modifiedName: string
+          genre: string
+        }
+      ) => void
+    >,
+    required: true
+  },
+  index: {
+    type: Number,
     required: true
   }
 })
@@ -69,9 +96,7 @@ const schema = {
   modifiedName: "required",
   genre: "alpha_spaces"
 }
-const showForm = ref(false)
 
-const edit = () => {
-  console.log(props)
-}
+const { showForm, inSubmittion, showAlert, alertVariant, alertMessage, edit } =
+  useAudioEdit(props)
 </script>

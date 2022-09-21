@@ -5,7 +5,7 @@ export interface ISong extends DocumentData {
   docId: string
 }
 
-export const useAudioData = () => {
+export const useAudioData = (isInit = false) => {
   const songs = reactive<ISong[]>([])
 
   async function fetchAudios() {
@@ -23,11 +23,19 @@ export const useAudioData = () => {
     })
   }
 
-  async function test() {
-    songs[0].modifiedName = "test"
+  async function updateSong(
+    i: number,
+    values: { modifiedName: string; genre: string }
+  ) {
+    songs[i].modifiedName = values.modifiedName
+    songs[i].genre = values.genre
   }
 
-  onMounted(fetchAudios)
+  onMounted(() => {
+    if (isInit) {
+      fetchAudios()
+    }
+  })
 
-  return { songs, fetchAudios, test }
+  return { songs, fetchAudios, updateSong }
 }

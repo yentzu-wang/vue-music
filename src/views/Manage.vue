@@ -17,9 +17,11 @@
           </div>
           <div class="p-6">
             <CompositionItem
-              v-for="song in songs"
+              v-for="(song, index) in songs"
               :key="song.docId"
               :song="song"
+              :updateSong="updateSong"
+              :index="index"
             />
           </div>
         </div>
@@ -33,5 +35,5 @@ import Upload from "@/components/Upload.vue"
 import CompositionItem from "@/components/CompositionItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
-const { songs } = useAudioData()
+const { songs, updateSong } = useAudioData(true)
 </script>
