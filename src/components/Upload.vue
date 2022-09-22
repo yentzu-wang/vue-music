@@ -35,17 +35,28 @@
         <div class="flex h-4 overflow-hidden rounded bg-gray-200">
           <!-- Inner Progress Bar -->
           <div
-            class="progress-bar bg-blue-400 transition-all"
+            class="progress-bar transition-all"
             :class="variant"
             :style="{ width: `${progress}%` }"
-          ></div>
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { PropType } from "vue"
 import { useAudioUpload } from "@/composables/useAudioUpload"
+import type { DocumentData } from "@/includes/firebase"
 
-const { isDragOver, uploads, upload, dragUpload } = useAudioUpload()
+const props = defineProps({
+  addSong: {
+    type: Function as PropType<(document: DocumentData) => void>,
+    required: true
+  }
+})
+
+const { isDragOver, uploads, upload, dragUpload } = useAudioUpload(
+  props.addSong
+)
 </script>

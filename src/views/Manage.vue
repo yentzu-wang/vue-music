@@ -3,7 +3,7 @@
   <section class="container mx-auto mt-6">
     <div class="md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
-        <Upload />
+        <Upload :addSong="addSong" />
       </div>
       <div class="col-span-2">
         <div
@@ -36,5 +36,5 @@ import Upload from "@/components/Upload.vue"
 import CompositionItem from "@/components/CompositionItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
-const { songs, updateSong, removeSong } = useAudioData(true)
+const { songs, updateSong, removeSong, addSong } = useAudioData(true)
 </script>

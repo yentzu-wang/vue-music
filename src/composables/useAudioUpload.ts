@@ -1,7 +1,8 @@
 import { ref, reactive, onBeforeUnmount } from "vue"
 import { storage, UploadTask, auth, songsCollection } from "@/includes/firebase"
+import type { DocumentData } from "@/includes/firebase"
 
-export const useAudioUpload = () => {
+export const useAudioUpload = (addSong: (song: DocumentData) => void) => {
   type Upload = {
     task: UploadTask
     name: string
@@ -72,7 +73,10 @@ export const useAudioUpload = () => {
           }
 
           song.url = await task.snapshot.ref.getDownloadURL()
-          await songsCollection.add(song)
+          const songRef = await songsCollection.add(song)
+          const songSnapshot = await songRef.get()
+
+          addSong(songSnapshot)
 
           uploads[uploadIndex].variant = "bg-green-400"
           uploads[uploadIndex].icon = "fas fa-check"

@@ -13,17 +13,10 @@ export const useAudioData = (isInit = false) => {
       .where("uid", "==", auth.currentUser?.uid)
       .get()
 
-    snapshot.forEach((document) => {
-      const song = {
-        ...document.data(),
-        docId: document.id
-      }
-
-      songs.push(song)
-    })
+    snapshot.forEach(addSong)
   }
 
-  const updateSong = async (
+  const updateSong = (
     i: number,
     values: { modifiedName: string; genre: string }
   ) => {
@@ -31,8 +24,17 @@ export const useAudioData = (isInit = false) => {
     songs[i].genre = values.genre
   }
 
-  const removeSong = async (i: number) => {
+  const removeSong = (i: number) => {
     songs.splice(i, 1)
+  }
+
+  const addSong = (document: DocumentData) => {
+    const song = {
+      ...document.data(),
+      docId: document.id
+    }
+
+    songs.push(song)
   }
 
   onMounted(() => {
@@ -41,5 +43,5 @@ export const useAudioData = (isInit = false) => {
     }
   })
 
-  return { songs, fetchAudios, updateSong, removeSong }
+  return { songs, fetchAudios, updateSong, removeSong, addSong }
 }
