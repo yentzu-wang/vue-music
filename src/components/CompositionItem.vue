@@ -4,6 +4,7 @@
       <h4 class="inline-block text-2xl font-bold">{{ song.modifiedName }}</h4>
       <button
         class="float-right ml-1 rounded bg-red-600 py-1 px-2 text-sm text-white"
+        @click.prevent="deleteSong"
       >
         <i class="fa fa-times"></i>
       </button>
@@ -89,6 +90,10 @@ const props = defineProps({
   index: {
     type: Number,
     required: true
+  },
+  removeSong: {
+    type: Function as PropType<(i: number) => void>,
+    required: true
   }
 })
 
@@ -97,6 +102,13 @@ const schema = {
   genre: "alpha_spaces"
 }
 
-const { showForm, inSubmittion, showAlert, alertVariant, alertMessage, edit } =
-  useAudioEdit(props)
+const {
+  showForm,
+  inSubmittion,
+  showAlert,
+  alertVariant,
+  alertMessage,
+  edit,
+  deleteSong
+} = useAudioEdit(props)
 </script>

@@ -1,6 +1,6 @@
 import { ref } from "vue"
 import type { ISong } from "@/composables/useAudioData"
-import { songsCollection } from "@/includes/firebase"
+import { songsCollection, storage } from "@/includes/firebase"
 
 export const useAudioEdit = (props: {
   index: number
@@ -12,6 +12,7 @@ export const useAudioEdit = (props: {
       genre: string
     }
   ) => void
+  removeSong: (i: number) => void
 }) => {
   const showForm = ref(false)
   const inSubmittion = ref(false)
@@ -40,12 +41,22 @@ export const useAudioEdit = (props: {
     }
   }
 
+  const deleteSong = async () => {
+    const storageRef = storage.ref()
+    const songRef = storageRef.child(`songs/${props.song.originalName}`)
+
+    await songRef.delete()
+    await songsCollection.doc(props.song.docId).delete()
+    props.removeSong(props.index)
+  }
+
   return {
     showForm,
     inSubmittion,
     showAlert,
     alertVariant,
     alertMessage,
-    edit
+    edit,
+    deleteSong
   }
 }

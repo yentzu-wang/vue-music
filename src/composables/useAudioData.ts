@@ -8,7 +8,7 @@ export interface ISong extends DocumentData {
 export const useAudioData = (isInit = false) => {
   const songs = reactive<ISong[]>([])
 
-  async function fetchAudios() {
+  const fetchAudios = async () => {
     const snapshot = await songsCollection
       .where("uid", "==", auth.currentUser?.uid)
       .get()
@@ -23,12 +23,16 @@ export const useAudioData = (isInit = false) => {
     })
   }
 
-  async function updateSong(
+  const updateSong = async (
     i: number,
     values: { modifiedName: string; genre: string }
-  ) {
+  ) => {
     songs[i].modifiedName = values.modifiedName
     songs[i].genre = values.genre
+  }
+
+  const removeSong = async (i: number) => {
+    songs.splice(i, 1)
   }
 
   onMounted(() => {
@@ -37,5 +41,5 @@ export const useAudioData = (isInit = false) => {
     }
   })
 
-  return { songs, fetchAudios, updateSong }
+  return { songs, fetchAudios, updateSong, removeSong }
 }

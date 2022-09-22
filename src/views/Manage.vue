@@ -22,6 +22,7 @@
               :song="song"
               :updateSong="updateSong"
               :index="index"
+              :removeSong="removeSong"
             />
           </div>
         </div>
@@ -35,5 +36,5 @@ import Upload from "@/components/Upload.vue"
 import CompositionItem from "@/components/CompositionItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
-const { songs, updateSong } = useAudioData(true)
+const { songs, updateSong, removeSong } = useAudioData(true)
 </script>
