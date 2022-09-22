@@ -38,5 +38,5 @@ import CompositionItem from "@/components/CompositionItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
 const { songs, updateSong, removeSong, addSong, updateUnsavedFlag } =
-  useAudioData(true)
+  useAudioData()
 </script>

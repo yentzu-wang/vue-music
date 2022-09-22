@@ -6,14 +6,14 @@ export interface ISong extends DocumentData {
   docId: string
 }
 
-export const useAudioData = (isInit = false) => {
+export const useAudioData = (isLandingPage = false) => {
   const songs = reactive<ISong[]>([])
   const unsavedFlag = ref(false)
 
-  const fetchAudios = async () => {
-    const snapshot = await songsCollection
-      .where("uid", "==", auth.currentUser?.uid)
-      .get()
+  const fetchAudios = async (isLandingPage = false) => {
+    const snapshot = isLandingPage
+      ? await songsCollection.get()
+      : await songsCollection.where("uid", "==", auth.currentUser?.uid).get()
 
     snapshot.forEach(addSong)
   }
@@ -55,9 +55,7 @@ export const useAudioData = (isInit = false) => {
   })
 
   onMounted(() => {
-    if (isInit) {
-      fetchAudios()
-    }
+    fetchAudios(isLandingPage)
   })
 
   return {
