@@ -1,4 +1,5 @@
 import { ref } from "vue"
+
 import type { ISong } from "@/composables/useAudioData"
 import { songsCollection, storage } from "@/includes/firebase"
 
@@ -13,6 +14,7 @@ export const useAudioEdit = (props: {
     }
   ) => void
   removeSong: (i: number) => void
+  updateUnsavedFlag?: (value: boolean) => void
 }) => {
   const showForm = ref(false)
   const inSubmittion = ref(false)
@@ -29,11 +31,12 @@ export const useAudioEdit = (props: {
     try {
       await songsCollection.doc(props.song.docId).update(values)
 
+      props.updateSong(props.index, values)
+      props.updateUnsavedFlag?.(false)
+
       inSubmittion.value = false
       alertVariant.value = "bg-green-500"
       alertMessage.value = "Song info updated successfully."
-
-      props.updateSong(props.index, values)
     } catch (error) {
       inSubmittion.value = false
       alertVariant.value = "bg-red-500"

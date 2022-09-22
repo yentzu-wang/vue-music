@@ -31,6 +31,7 @@
             type="text"
             placeholder="Enter Song Title"
             name="modifiedName"
+            @input="props.updateUnsavedFlag?.(true)"
           />
           <ErrorMessage class="text-red-600" name="modifiedName" />
         </div>
@@ -41,6 +42,7 @@
             type="text"
             placeholder="Enter Genre"
             name="genre"
+            @input="props.updateUnsavedFlag?.(true)"
           />
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
@@ -94,6 +96,9 @@ const props = defineProps({
   removeSong: {
     type: Function as PropType<(i: number) => void>,
     required: true
+  },
+  updateUnsavedFlag: {
+    type: Function as PropType<(flag: boolean) => void>
   }
 })
 
