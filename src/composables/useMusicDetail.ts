@@ -43,19 +43,21 @@ export const useMusicDetail = () => {
   const sort = ref((query?.sort as string) || "1")
 
   const sortedComments = computed(() =>
-    [...comments.value].sort((a, b) => {
-      if (sort.value === "1") {
-        return +new Date(b.datePosted) - +new Date(a.datePosted)
-      }
-
-      return +new Date(a.datePosted) - +new Date(b.datePosted)
-    })
+    [...comments.value].sort((a, b) =>
+      sort.value === "1"
+        ? +new Date(b.datePosted) - +new Date(a.datePosted)
+        : +new Date(a.datePosted) - +new Date(b.datePosted)
+    )
   )
 
   const addComment = async (
     values: { comment: string },
     context: { resetForm: () => void }
   ) => {
+    if (!song.value) {
+      return
+    }
+
     commentInSubmittion.value = true
     commentShowAlert.value = true
     commentAlertVariant.value = "bg-blue-500"
@@ -71,16 +73,16 @@ export const useMusicDetail = () => {
 
     await commentsCollection.add(comment)
 
-    if (song?.value?.commentCount) {
+    if (song.value?.commentCount) {
       song.value.commentCount += 1
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      song.value!.commentCount = 1
+      // To avoid javascript trap: e.g. console.log(!!0), the output will be `false`
+      song.value.commentCount = 1
     }
+
     await songsCollection
       .doc(id as string)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      .update({ commentCount: song.value!.commentCount })
+      .update({ commentCount: song.value?.commentCount })
 
     commentInSubmittion.value = false
     commentAlertVariant.value = "bg-green-500"
