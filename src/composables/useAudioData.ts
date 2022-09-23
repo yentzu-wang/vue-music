@@ -88,7 +88,7 @@ export const useAudioData = (isLandingPage = false) => {
     }
   }
 
-  onBeforeRouteLeave((to, from, next) => {
+  onBeforeRouteLeave((_to, _from, next) => {
     if (!unsavedFlag.value) {
       next()
     } else {

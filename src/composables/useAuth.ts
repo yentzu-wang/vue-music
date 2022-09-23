@@ -5,7 +5,7 @@ import { auth } from "@/includes/firebase"
 
 export const useAuth = () => {
   const store = useUserStore()
-  const { userLoggedIn } = storeToRefs(store)
+  const { userLoggedIn } = storeToRefs(useUserStore())
 
   const signOut = store.signOut
 

@@ -28,7 +28,7 @@
     </div>
   </section>
   <!-- Form -->
-  <section class="container mx-auto mt-6">
+  <section class="container mx-auto mt-6" id="comments">
     <div class="relative flex flex-col rounded border border-gray-200 bg-white">
       <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold">
         <!-- Comment Count -->
