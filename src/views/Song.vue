@@ -29,7 +29,14 @@
         <i class="fa fa-comments float-right text-2xl text-green-400"></i>
       </div>
       <div class="p-6">
-        <VeeForm :validationSchema="schema">
+        <div
+          v-if="commentShowAlert"
+          class="mb-4 p-4 text-center font-bold text-white"
+          :class="commentAlertVariant"
+        >
+          {{ commentAlertMessage }}
+        </div>
+        <VeeForm :validationSchema="schema" @submit="addComment">
           <VeeField
             as="textarea"
             name="comment"
@@ -40,6 +47,7 @@
           <button
             type="submit"
             class="block rounded bg-green-600 py-1.5 px-3 text-white"
+            :disabled="commentInSubmittion"
           >
             Submit
           </button>
@@ -172,5 +180,12 @@ const schema = {
   comment: "required|min:3"
 }
 
-const { song } = useMusicDetail()
+const {
+  song,
+  addComment,
+  commentInSubmittion,
+  commentShowAlert,
+  commentAlertVariant,
+  commentAlertMessage
+} = useMusicDetail()
 </script>

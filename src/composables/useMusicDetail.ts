@@ -14,10 +14,23 @@ export interface ISong extends DocumentData {
 
 export const useMusicDetail = () => {
   const song = ref<ISong>()
+  const commentInSubmittion = ref(false)
+  const commentShowAlert = ref(false)
+  const commentAlertVariant = ref("bg-blue-500")
+  const commentAlertMessage = ref(
+    "Please wait! Your comment is being submitted."
+  )
   const router = useRouter()
   const {
     params: { id }
   } = useRoute()
+
+  const addComment = async (values) => {
+    commentInSubmittion.value = true
+    commentShowAlert.value = true
+    commentAlertVariant.value = "bg-blue-500"
+    commentAlertMessage.value = "Please wait! Your comment is being submitted."
+  }
 
   onMounted(async () => {
     const docSnapshot = await songsCollection.doc(id as string).get()
@@ -31,5 +44,12 @@ export const useMusicDetail = () => {
     song.value = docSnapshot.data()
   })
 
-  return { song }
+  return {
+    song,
+    addComment,
+    commentInSubmittion,
+    commentShowAlert,
+    commentAlertVariant,
+    commentAlertMessage
+  }
 }
