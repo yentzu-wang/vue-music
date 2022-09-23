@@ -71,6 +71,17 @@ export const useMusicDetail = () => {
 
     await commentsCollection.add(comment)
 
+    if (song?.value?.commentCount) {
+      song.value.commentCount += 1
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      song.value!.commentCount = 1
+    }
+    await songsCollection
+      .doc(id as string)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .update({ commentCount: song.value!.commentCount })
+
     commentInSubmittion.value = false
     commentAlertVariant.value = "bg-green-500"
     commentAlertMessage.value = "Comment added!"
