@@ -68,76 +68,19 @@
   </section>
   <!-- Comments -->
   <ul class="container mx-auto">
-    <li class="border border-gray-200 bg-gray-50 p-6">
+    <li
+      v-for="comment in comments"
+      :key="comment.docId"
+      class="border border-gray-200 bg-gray-50 p-6"
+    >
       <!-- Comment Author -->
       <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
+        <div class="font-bold">{{ comment.name }}</div>
+        <time>{{ comment.datePosted }}</time>
       </div>
 
       <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
-      </p>
-    </li>
-    <li class="border border-gray-200 bg-gray-50 p-6">
-      <!-- Comment Author -->
-      <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
-      </div>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
-      </p>
-    </li>
-    <li class="border border-gray-200 bg-gray-50 p-6">
-      <!-- Comment Author -->
-      <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
-      </div>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
-      </p>
-    </li>
-    <li class="border border-gray-200 bg-gray-50 p-6">
-      <!-- Comment Author -->
-      <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
-      </div>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
-      </p>
-    </li>
-    <li class="border border-gray-200 bg-gray-50 p-6">
-      <!-- Comment Author -->
-      <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
-      </div>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
-      </p>
-    </li>
-    <li class="border border-gray-200 bg-gray-50 p-6">
-      <!-- Comment Author -->
-      <div class="mb-5">
-        <div class="font-bold">Elaine Dreyfuss</div>
-        <time>5 mins ago</time>
-      </div>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium der doloremque laudantium.
+        {{ comment.content }}
       </p>
     </li>
   </ul>
@@ -188,6 +131,7 @@ const schema = {
 const { userLoggedIn } = useAuth()
 const {
   song,
+  comments,
   addComment,
   commentInSubmittion,
   commentShowAlert,

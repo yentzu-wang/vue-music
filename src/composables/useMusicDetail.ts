@@ -17,8 +17,18 @@ export interface ISong extends DocumentData {
   commentCount?: number
 }
 
+export interface IComment extends DocumentData {
+  docId?: string
+  content?: string
+  datePosted?: string
+  name?: string
+  sid?: string
+  uid?: string
+}
+
 export const useMusicDetail = () => {
   const song = ref<ISong>()
+  const comments = ref<IComment[]>([])
   const commentInSubmittion = ref(false)
   const commentShowAlert = ref(false)
   const commentAlertVariant = ref("bg-blue-500")
@@ -56,7 +66,7 @@ export const useMusicDetail = () => {
     context.resetForm()
   }
 
-  onMounted(async () => {
+  const getDetails = async () => {
     const docSnapshot = await songsCollection.doc(id as string).get()
 
     if (!docSnapshot.exists) {
@@ -66,14 +76,34 @@ export const useMusicDetail = () => {
     }
 
     song.value = docSnapshot.data()
+  }
+
+  const getComments = async () => {
+    const snapshot = await commentsCollection.where("sid", "==", id).get()
+
+    comments.value = []
+
+    snapshot.forEach((doc) =>
+      comments.value.push({
+        docId: doc.id,
+        ...doc.data()
+      })
+    )
+  }
+
+  onMounted(() => {
+    getDetails()
+    getComments()
   })
 
   return {
     song,
-    addComment,
+    comments,
     commentInSubmittion,
     commentShowAlert,
     commentAlertVariant,
-    commentAlertMessage
+    commentAlertMessage,
+    addComment,
+    getComments
   }
 }
