@@ -58,6 +58,7 @@
         </VeeForm>
         <!-- Sort Comments -->
         <select
+          v-model="sort"
           class="mt-4 block rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
         >
           <option value="1">Latest</option>
@@ -69,7 +70,7 @@
   <!-- Comments -->
   <ul class="container mx-auto">
     <li
-      v-for="comment in comments"
+      v-for="comment in sortedComments"
       :key="comment.docId"
       class="border border-gray-200 bg-gray-50 p-6"
     >
@@ -131,7 +132,8 @@ const schema = {
 const { userLoggedIn } = useAuth()
 const {
   song,
-  comments,
+  sort,
+  sortedComments,
   addComment,
   commentInSubmittion,
   commentShowAlert,

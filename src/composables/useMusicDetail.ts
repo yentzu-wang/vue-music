@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import {
   songsCollection,
@@ -18,12 +18,12 @@ export interface ISong extends DocumentData {
 }
 
 export interface IComment extends DocumentData {
-  docId?: string
-  content?: string
-  datePosted?: string
-  name?: string
-  sid?: string
-  uid?: string
+  docId: string
+  content: string
+  datePosted: string
+  name: string
+  sid: string
+  uid: string
 }
 
 export const useMusicDetail = () => {
@@ -35,10 +35,21 @@ export const useMusicDetail = () => {
   const commentAlertMessage = ref(
     "Please wait! Your comment is being submitted."
   )
+  const sort = ref("1")
   const router = useRouter()
   const {
     params: { id }
   } = useRoute()
+
+  const sortedComments = computed(() =>
+    [...comments.value].sort((a, b) => {
+      if (sort.value === "1") {
+        return +new Date(b.datePosted) - +new Date(a.datePosted)
+      }
+
+      return +new Date(a.datePosted) - +new Date(b.datePosted)
+    })
+  )
 
   const addComment = async (
     values: { comment: string },
@@ -64,6 +75,7 @@ export const useMusicDetail = () => {
     commentAlertMessage.value = "Comment added!"
 
     context.resetForm()
+    getComments()
   }
 
   const getDetails = async () => {
@@ -83,12 +95,18 @@ export const useMusicDetail = () => {
 
     comments.value = []
 
-    snapshot.forEach((doc) =>
-      comments.value.push({
+    snapshot.forEach((doc) => {
+      const { content, datePosted, name, sid, uid } = doc.data()
+
+      return comments.value.push({
         docId: doc.id,
-        ...doc.data()
+        content,
+        datePosted,
+        name,
+        sid,
+        uid
       })
-    )
+    })
   }
 
   onMounted(() => {
@@ -98,7 +116,9 @@ export const useMusicDetail = () => {
 
   return {
     song,
+    sort,
     comments,
+    sortedComments,
     commentInSubmittion,
     commentShowAlert,
     commentAlertVariant,
