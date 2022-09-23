@@ -15,7 +15,7 @@ export interface ISong extends DocumentData {
 export const useAudioData = (isLandingPage = false) => {
   const songs = reactive<ISong[]>([])
   const unsavedFlag = ref(false)
-  const maxPerPage = 3
+  const maxPerPage = 10
   const pendingRequest = ref(false)
 
   const getSongs = async (isLandingPage = false) => {

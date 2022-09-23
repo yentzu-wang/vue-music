@@ -10,6 +10,7 @@
       <button
         type="button"
         class="z-50 h-24 w-24 rounded-full bg-white text-3xl text-black focus:outline-none"
+        @click.prevent="newSong(song)"
       >
         <i class="fas fa-play"></i>
       </button>
@@ -95,7 +96,7 @@
     </div>
     <div class="flex flex-nowrap items-center gap-4">
       <!-- Play/Pause Button -->
-      <button type="button">
+      <button type="button" @click.prevent="newSong(song)">
         <i class="fa fa-play text-xl text-gray-500"></i>
       </button>
       <!-- Current Position -->
@@ -122,6 +123,7 @@
 </template>
 
 <script setup lang="ts">
+import { usePlayerStore } from "@/stores/player"
 import { useMusicDetail } from "@/composables/useMusicDetail"
 import { useAuth } from "@/composables/useAuth"
 
@@ -140,4 +142,5 @@ const {
   commentAlertVariant,
   commentAlertMessage
 } = useMusicDetail()
+const { newSong } = usePlayerStore()
 </script>
