@@ -1,16 +1,22 @@
-import { onMounted, reactive, ref } from "vue"
+import { onMounted, reactive, ref, onBeforeUnmount } from "vue"
 import { onBeforeRouteLeave } from "vue-router"
 import { songsCollection, auth, DocumentData } from "@/includes/firebase"
 
 export interface ISong extends DocumentData {
   docId: string
+  modifiedName: string
+  displayName: string
+  originalName: string
+  url: string
+  genre: string
+  commentCount: number
 }
 
 export const useAudioData = (isLandingPage = false) => {
   const songs = reactive<ISong[]>([])
   const unsavedFlag = ref(false)
 
-  const fetchAudios = async (isLandingPage = false) => {
+  const getSongs = async (isLandingPage = false) => {
     const snapshot = isLandingPage
       ? await songsCollection.get()
       : await songsCollection.where("uid", "==", auth.currentUser?.uid).get()
@@ -43,6 +49,16 @@ export const useAudioData = (isLandingPage = false) => {
     unsavedFlag.value = value
   }
 
+  function handleScroll() {
+    const { scrollTop, offsetHeight } = document.documentElement
+    const { innerHeight } = window
+    const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight
+
+    if (bottomOfWindow) {
+      console.log("Bottom of window")
+    }
+  }
+
   onBeforeRouteLeave((to, from, next) => {
     if (!unsavedFlag.value) {
       next()
@@ -55,12 +71,18 @@ export const useAudioData = (isLandingPage = false) => {
   })
 
   onMounted(() => {
-    fetchAudios(isLandingPage)
+    getSongs(isLandingPage)
+
+    window.addEventListener("scroll", handleScroll)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener("scroll", handleScroll)
   })
 
   return {
     songs,
-    fetchAudios,
+    getSongs,
     updateSong,
     removeSong,
     addSong,
