@@ -14,7 +14,7 @@
         ></i>
       </button>
       <!-- Current Position -->
-      <div class="player-currenttime">00:00</div>
+      <div class="player-currenttime">{{ seek }}</div>
       <!-- Scrub Container  -->
       <div class="relative h-2 w-full cursor-pointer rounded bg-gray-200">
         <!-- Player Ball -->
@@ -31,7 +31,7 @@
         ></span>
       </div>
       <!-- Duration -->
-      <div class="player-duration">03:06</div>
+      <div class="player-duration">{{ duration }}</div>
     </div>
   </div>
 </template>
@@ -42,5 +42,5 @@ import { usePlayerStore } from "@/stores/player"
 
 const store = usePlayerStore()
 const { toggleAudio } = store
-const { playing } = storeToRefs(store)
+const { playing, seek, duration } = storeToRefs(store)
 </script>

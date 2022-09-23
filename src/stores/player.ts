@@ -6,6 +6,8 @@ import { ISong } from "@/composables/useMusicDetail"
 export const usePlayerStore = defineStore("player", () => {
   const currentSong = ref<ISong>()
   const sound = ref<Howl>()
+  const seek = ref<string | number>("00:00")
+  const duration = ref<string | number>("00:00")
 
   const playing = computed(() => sound.value?.playing && sound.value?.playing())
 
@@ -21,6 +23,10 @@ export const usePlayerStore = defineStore("player", () => {
     })
 
     sound.value.play()
+
+    sound.value.on("play", () => {
+      requestAnimationFrame(progress)
+    })
   }
 
   async function toggleAudio() {
@@ -28,10 +34,17 @@ export const usePlayerStore = defineStore("player", () => {
       return
     }
 
-    console.log(sound.value?.playing())
-
     sound.value?.playing() ? sound.value?.pause() : sound.value?.play()
   }
 
-  return { currentSong, playing, newSong, toggleAudio }
+  function progress() {
+    seek.value = sound.value?.seek() || "00:00"
+    duration.value = sound.value?.duration() || "00:00"
+
+    if (sound.value?.playing()) {
+      requestAnimationFrame(progress)
+    }
+  }
+
+  return { currentSong, playing, seek, duration, newSong, toggleAudio }
 })
