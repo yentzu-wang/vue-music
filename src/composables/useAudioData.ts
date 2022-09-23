@@ -15,13 +15,42 @@ export interface ISong extends DocumentData {
 export const useAudioData = (isLandingPage = false) => {
   const songs = reactive<ISong[]>([])
   const unsavedFlag = ref(false)
+  const maxPerPage = 3
+  const pendingRequest = ref(false)
 
   const getSongs = async (isLandingPage = false) => {
-    const snapshot = isLandingPage
-      ? await songsCollection.get()
-      : await songsCollection.where("uid", "==", auth.currentUser?.uid).get()
+    if (pendingRequest.value) {
+      return
+    }
 
-    snapshot.forEach(addSong)
+    try {
+      pendingRequest.value = true
+      const snapshot = isLandingPage
+        ? await getLandingPageSnapshots()
+        : await songsCollection.where("uid", "==", auth.currentUser?.uid).get()
+
+      snapshot.forEach(addSong)
+      pendingRequest.value = false
+    } catch (error) {
+      pendingRequest.value = false
+      console.log(error)
+    }
+
+    async function getLandingPageSnapshots() {
+      if (songs.length > 0) {
+        const lastDoc = await songsCollection
+          .doc(songs[songs.length - 1].docId)
+          .get()
+
+        return songsCollection
+          .orderBy("modifiedName")
+          .startAfter(lastDoc)
+          .limit(maxPerPage)
+          .get()
+      }
+
+      return songsCollection.orderBy("modifiedName").limit(maxPerPage).get()
+    }
   }
 
   const updateSong = (
@@ -55,7 +84,7 @@ export const useAudioData = (isLandingPage = false) => {
     const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight
 
     if (bottomOfWindow) {
-      console.log("Bottom of window")
+      getSongs(true)
     }
   }
 

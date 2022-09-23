@@ -7,7 +7,7 @@
         {{ song.modifiedName }}
       </a>
       <span class="text-sm text-gray-500">
-        {{ song.displayName }}
+        Upload by {{ song.displayName }}
       </span>
     </div>
 
