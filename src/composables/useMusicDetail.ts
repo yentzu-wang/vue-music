@@ -1,4 +1,4 @@
-import { computed, onMounted, ref } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import {
   songsCollection,
@@ -112,6 +112,10 @@ export const useMusicDetail = () => {
   onMounted(() => {
     getDetails()
     getComments()
+  })
+
+  watch(sort, () => {
+    router.push({ query: { sort: sort.value } })
   })
 
   return {
