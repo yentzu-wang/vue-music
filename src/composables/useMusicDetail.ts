@@ -1,6 +1,11 @@
 import { onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { songsCollection, DocumentData } from "@/includes/firebase"
+import {
+  songsCollection,
+  DocumentData,
+  auth,
+  commentsCollection
+} from "@/includes/firebase"
 
 export interface ISong extends DocumentData {
   docId?: string
@@ -25,11 +30,30 @@ export const useMusicDetail = () => {
     params: { id }
   } = useRoute()
 
-  const addComment = async (values) => {
+  const addComment = async (
+    values: { comment: string },
+    context: { resetForm: () => void }
+  ) => {
     commentInSubmittion.value = true
     commentShowAlert.value = true
     commentAlertVariant.value = "bg-blue-500"
     commentAlertMessage.value = "Please wait! Your comment is being submitted."
+
+    const comment = {
+      content: values.comment,
+      datePosted: new Date().toString(),
+      sid: id,
+      name: auth.currentUser?.displayName || "",
+      uid: auth.currentUser?.uid
+    }
+
+    await commentsCollection.add(comment)
+
+    commentInSubmittion.value = false
+    commentAlertVariant.value = "bg-green-500"
+    commentAlertMessage.value = "Comment added!"
+
+    context.resetForm()
   }
 
   onMounted(async () => {

@@ -36,7 +36,11 @@
         >
           {{ commentAlertMessage }}
         </div>
-        <VeeForm :validationSchema="schema" @submit="addComment">
+        <VeeForm
+          v-if="userLoggedIn"
+          :validationSchema="schema"
+          @submit="addComment"
+        >
           <VeeField
             as="textarea"
             name="comment"
@@ -175,11 +179,13 @@
 
 <script setup lang="ts">
 import { useMusicDetail } from "@/composables/useMusicDetail"
+import { useAuth } from "@/composables/useAuth"
 
 const schema = {
   comment: "required|min:3"
 }
 
+const { userLoggedIn } = useAuth()
 const {
   song,
   addComment,
