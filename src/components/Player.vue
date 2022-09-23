@@ -1,9 +1,10 @@
 <template>
   <div class="fixed bottom-0 left-0 w-full bg-white px-4 py-2">
     <!-- Track Info -->
-    <div class="text-center">
-      <span class="song-title font-bold">Song Title</span> by
-      <span class="song-artist">Artist</span>
+    <div v-if="currentSong?.modifiedName" class="text-center">
+      <span class="song-title font-bold">{{ currentSong.modifiedName }}</span>
+      uploaded by
+      <span class="song-artist">{{ currentSong.displayName }}</span>
     </div>
     <div class="flex flex-nowrap items-center gap-4">
       <!-- Play/Pause Button -->
@@ -20,14 +21,14 @@
         <!-- Player Ball -->
         <span
           class="absolute -top-2.5 -ml-2.5 text-lg text-gray-800"
-          style="left: 50%"
+          :style="{ left: playerProgress }"
         >
           <i class="fas fa-circle"></i>
         </span>
         <!-- Player Progress Bar-->
         <span
           class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
-          style="width: 50%"
+          :style="{ width: playerProgress }"
         ></span>
       </div>
       <!-- Duration -->
@@ -42,5 +43,6 @@ import { usePlayerStore } from "@/stores/player"
 
 const store = usePlayerStore()
 const { toggleAudio } = store
-const { playing, seek, duration } = storeToRefs(store)
+const { playing, seek, duration, playerProgress, currentSong } =
+  storeToRefs(store)
 </script>
