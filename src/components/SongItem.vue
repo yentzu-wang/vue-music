@@ -3,9 +3,12 @@
     class="flex cursor-pointer items-center justify-between p-3 pl-6 transition duration-300 hover:bg-gray-50"
   >
     <div>
-      <a href="#" class="block font-bold text-gray-600">
+      <router-link
+        :to="{ name: 'song', params: { id: song.docId } }"
+        class="block font-bold text-gray-600"
+      >
         {{ song.modifiedName }}
-      </a>
+      </router-link>
       <span class="text-sm text-gray-500">
         Upload by {{ song.displayName }}
       </span>
@@ -23,6 +26,7 @@
 <script setup lang="ts">
 defineProps<{
   song: {
+    docId: string
     modifiedName: string
     displayName: string
     commentCount: number
