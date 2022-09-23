@@ -27,6 +27,11 @@ export interface IComment extends DocumentData {
 }
 
 export const useMusicDetail = () => {
+  const router = useRouter()
+  const {
+    params: { id },
+    query
+  } = useRoute()
   const song = ref<ISong>()
   const comments = ref<IComment[]>([])
   const commentInSubmittion = ref(false)
@@ -35,11 +40,7 @@ export const useMusicDetail = () => {
   const commentAlertMessage = ref(
     "Please wait! Your comment is being submitted."
   )
-  const sort = ref("1")
-  const router = useRouter()
-  const {
-    params: { id }
-  } = useRoute()
+  const sort = ref((query?.sort as string) || "1")
 
   const sortedComments = computed(() =>
     [...comments.value].sort((a, b) => {
