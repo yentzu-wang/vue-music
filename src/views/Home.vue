@@ -29,12 +29,9 @@
       <div
         class="relative flex flex-col rounded border border-gray-200 bg-white"
       >
-        <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold">
+        <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold" v-icon>
           <span class="card-title">Songs</span>
           <!-- Icon -->
-          <i
-            class="fa fa-headphones-alt float-right text-xl text-green-400"
-          ></i>
         </div>
         <!-- Playlist -->
         <ol id="playlist">
