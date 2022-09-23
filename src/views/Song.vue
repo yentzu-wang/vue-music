@@ -29,18 +29,21 @@
         <i class="fa fa-comments float-right text-2xl text-green-400"></i>
       </div>
       <div class="p-6">
-        <form>
-          <textarea
+        <VeeForm :validationSchema="schema">
+          <VeeField
+            as="textarea"
+            name="comment"
             class="mb-4 block w-full rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
             placeholder="Your comment here..."
-          ></textarea>
+          />
+          <ErrorMessage name="comment" class="text-red-600" />
           <button
             type="submit"
             class="block rounded bg-green-600 py-1.5 px-3 text-white"
           >
             Submit
           </button>
-        </form>
+        </VeeForm>
         <!-- Sort Comments -->
         <select
           class="mt-4 block rounded border border-gray-300 py-1.5 px-3 text-gray-800 transition duration-500 focus:border-black focus:outline-none"
@@ -164,6 +167,10 @@
 
 <script setup lang="ts">
 import { useMusicDetail } from "@/composables/useMusicDetail"
+
+const schema = {
+  comment: "required|min:3"
+}
 
 const { song } = useMusicDetail()
 </script>
