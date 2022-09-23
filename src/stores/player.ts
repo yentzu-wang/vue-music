@@ -2,6 +2,7 @@ import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import { Howl } from "howler"
 import { ISong } from "@/composables/useMusicDetail"
+import { formatTime } from "@/includes/helper"
 
 export const usePlayerStore = defineStore("player", () => {
   const currentSong = ref<ISong>()
@@ -38,8 +39,8 @@ export const usePlayerStore = defineStore("player", () => {
   }
 
   function progress() {
-    seek.value = sound.value?.seek() || "00:00"
-    duration.value = sound.value?.duration() || "00:00"
+    seek.value = formatTime(sound.value?.seek())
+    duration.value = formatTime(sound.value?.duration())
 
     if (sound.value?.playing()) {
       requestAnimationFrame(progress)
