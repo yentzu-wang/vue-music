@@ -31,7 +31,7 @@
       >
         <div
           class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold"
-          v-icon="'headphones-alt'"
+          v-icon-secondary="{ icon: 'headphones-alt', right: true }"
         >
           <span class="card-title">Songs</span>
           <!-- Icon -->
