@@ -12,7 +12,13 @@
         class="z-50 h-24 w-24 rounded-full bg-white text-3xl text-black focus:outline-none"
         @click.prevent="newSong(song)"
       >
-        <i class="fas fa-play"></i>
+        <i
+          class="fa text-xl text-gray-500"
+          :class="{
+            'fa-play': !playing || song?.docId !== currentSong?.docId,
+            'fa-pause': playing
+          }"
+        />
       </button>
       <div class="z-50 ml-8 text-left">
         <!-- Song Info -->
@@ -94,6 +100,7 @@ import Player from "@/components/Player.vue"
 import { usePlayerStore } from "@/stores/player"
 import { useMusicDetail } from "@/composables/useMusicDetail"
 import { useAuth } from "@/composables/useAuth"
+import { storeToRefs } from "pinia"
 
 const schema = {
   comment: "required|min:3"
@@ -110,5 +117,7 @@ const {
   commentAlertVariant,
   commentAlertMessage
 } = useMusicDetail()
-const { newSong } = usePlayerStore()
+const store = usePlayerStore()
+const { playing, currentSong } = storeToRefs(store)
+const { newSong } = store
 </script>

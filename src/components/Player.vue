@@ -1,7 +1,10 @@
 <template>
-  <div class="fixed bottom-0 left-0 w-full bg-white px-4 py-2">
+  <div
+    v-if="currentSong?.modifiedName"
+    class="fixed bottom-0 left-0 w-full bg-white px-4 pt-2 pb-6 shadow-lg"
+  >
     <!-- Track Info -->
-    <div v-if="currentSong?.modifiedName" class="text-center">
+    <div class="text-center">
       <span class="song-title font-bold">{{ currentSong.modifiedName }}</span>
       uploaded by
       <span class="song-artist">{{ currentSong.displayName }}</span>
@@ -12,12 +15,15 @@
         <i
           class="fa text-xl text-gray-500"
           :class="{ 'fa-play': !playing, 'fa-pause': playing }"
-        ></i>
+        />
       </button>
       <!-- Current Position -->
       <div class="player-currenttime">{{ seek }}</div>
       <!-- Scrub Container  -->
-      <div class="relative h-2 w-full cursor-pointer rounded bg-gray-200">
+      <div
+        @click.prevent="updateSeek"
+        class="relative h-2 w-full cursor-pointer rounded bg-gray-200"
+      >
         <!-- Player Ball -->
         <span
           class="absolute -top-2.5 -ml-2.5 text-lg text-gray-800"
@@ -42,7 +48,7 @@ import { storeToRefs } from "pinia"
 import { usePlayerStore } from "@/stores/player"
 
 const store = usePlayerStore()
-const { toggleAudio } = store
+const { toggleAudio, updateSeek } = store
 const { playing, seek, duration, playerProgress, currentSong } =
   storeToRefs(store)
 </script>

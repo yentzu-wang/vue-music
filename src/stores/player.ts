@@ -18,6 +18,12 @@ export const usePlayerStore = defineStore("player", () => {
       return
     }
 
+    if (sound.value?.playing() && song.url === currentSong.value?.url) {
+      sound.value?.pause()
+
+      return
+    }
+
     if (sound.value instanceof Howl) {
       sound.value.unload()
     }
@@ -29,16 +35,31 @@ export const usePlayerStore = defineStore("player", () => {
     })
 
     sound.value.play()
-
     sound.value.on("play", () => requestAnimationFrame(progress))
   }
 
-  async function toggleAudio() {
+  function toggleAudio() {
     if (!sound.value?.playing) {
       return
     }
 
     sound.value?.playing() ? sound.value?.pause() : sound.value?.play()
+  }
+
+  function updateSeek(e: MouseEvent) {
+    if (!sound.value?.playing) {
+      return
+    }
+
+    const { x, width } = (
+      e.currentTarget as HTMLElement
+    ).getBoundingClientRect()
+    const clickX = e.clientX - x
+    const percentage = clickX / width
+    const seconds = sound.value.duration() * percentage
+
+    sound.value.seek(seconds)
+    sound.value.once("seek", progress)
   }
 
   function progress() {
@@ -62,6 +83,7 @@ export const usePlayerStore = defineStore("player", () => {
     duration,
     playerProgress,
     newSong,
-    toggleAudio
+    toggleAudio,
+    updateSeek
   }
 })
