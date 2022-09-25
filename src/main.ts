@@ -8,9 +8,12 @@ import { auth } from "./includes/firebase"
 import Icon from "./directives/icon"
 import IconSecondary from "./directives/icon-secondary"
 import i18n from "./includes/i18n"
+import { registerSW } from "virtual:pwa-register"
 
 import "@/assets/tailwind.css"
 import "@/assets/main.css"
+
+registerSW({ immediate: true })
 
 let app: App<Element>
 
