@@ -1,3 +1,6 @@
 {
-  "home": { "listen": "來首好歌!" }
+  "home": { "listen": "來首好歌!" },
+  "song": {
+    "commentCount": "沒有迴響 | {count} 則迴響"
+  }
 }
