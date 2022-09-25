@@ -6,15 +6,19 @@ import router from "./router"
 import VeeValidatePlugin from "./includes/validation"
 import { auth } from "./includes/firebase"
 import GlobalComponents from "./includes/_gloabls"
+import progressBar from "./includes/progress-bar"
 import Icon from "./directives/icon"
 import IconSecondary from "./directives/icon-secondary"
 import i18n from "./includes/i18n"
 import { registerSW } from "virtual:pwa-register"
 
+import "nprogress/nprogress.css"
 import "@/assets/tailwind.css"
 import "@/assets/main.css"
 
 registerSW({ immediate: true })
+
+progressBar(router)
 
 let app: App<Element>
 
