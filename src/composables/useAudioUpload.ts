@@ -5,7 +5,7 @@ import type { DocumentData } from "@/includes/firebase"
 
 export const useAudioUpload = (addSong: (song: DocumentData) => void) => {
   type Upload = {
-    task: UploadTask
+    task?: UploadTask
     name: string
     progress: number
     variant: string
@@ -34,6 +34,17 @@ export const useAudioUpload = (addSong: (song: DocumentData) => void) => {
     files.forEach((file) => {
       if (file.type !== "audio/mpeg") {
         console.log("Only mp3 files are allowed")
+        return
+      }
+
+      if (!navigator.onLine) {
+        uploads.push({
+          progress: 100,
+          name: file.name,
+          variant: "bg-red-400",
+          icon: "fas fa-times",
+          textClass: "text-red-400"
+        })
         return
       }
 
@@ -89,7 +100,7 @@ export const useAudioUpload = (addSong: (song: DocumentData) => void) => {
 
   onBeforeUnmount(() => {
     uploads.forEach((upload) => {
-      upload.task.cancel()
+      upload.task?.cancel()
     })
   })
 
