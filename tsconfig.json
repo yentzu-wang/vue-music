@@ -27,6 +27,6 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/includes/_gloabls.js"
-  ],
+, "src/components/__tests__/example.spec.js"  ],
   "exclude": ["dist", "node_modules"]
 }
