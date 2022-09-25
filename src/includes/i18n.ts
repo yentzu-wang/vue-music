@@ -10,5 +10,25 @@ export default createI18n({
     en,
     "zh-tw": zhTw,
     "zh-cn": zhCn
+  },
+  numberFormats: {
+    en: {
+      currency: {
+        style: "currency",
+        currency: "USD"
+      }
+    },
+    ja: {
+      currency: {
+        style: "currency",
+        currency: "JPY"
+      }
+    },
+    "zh-tw": {
+      currency: {
+        style: "currency",
+        currency: "TWD"
+      }
+    }
   }
 })
