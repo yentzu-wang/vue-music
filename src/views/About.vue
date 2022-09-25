@@ -1,1 +1,5 @@
-<template>About</template>
+<template>
+  About
+  <br />
+  <BaseButton />
+</template>

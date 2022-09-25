@@ -15,6 +15,7 @@
     "@vee-validate/rules": "^4.6.7",
     "firebase": "8",
     "howler": "^2.2.3",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.21",
     "vee-validate": "^4.6.7",
     "vue": "^3.2.38",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/howler": "^2.2.7",
+    "@types/lodash": "^4.14.185",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
     "@vitejs/plugin-vue": "^3.0.3",
