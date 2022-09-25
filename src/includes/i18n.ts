@@ -4,6 +4,8 @@ import zhTw from "@/locales/zh-tw.json"
 import zhCn from "@/locales/zh-cn.json"
 
 export default createI18n({
+  legacy: false,
+  globalInjection: true,
   locale: "en",
   fallbackLocale: "en",
   messages: {

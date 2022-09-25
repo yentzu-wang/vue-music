@@ -38,7 +38,7 @@
           <!-- Comment Count -->
           <span class="card-title">
             {{
-              $tc("song.commentCount", song?.commentComment, {
+              t("song.commentCount", {
                 count: song?.commentCount
               })
             }}
@@ -107,11 +107,12 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia"
+import { useI18n } from "vue-i18n"
 import Player from "@/components/Player.vue"
 import { usePlayerStore } from "@/stores/player"
 import { useMusicDetail } from "@/composables/useMusicDetail"
 import { useAuth } from "@/composables/useAuth"
-import { storeToRefs } from "pinia"
 
 const schema = {
   comment: "required|min:3"
@@ -131,4 +132,5 @@ const {
 const store = usePlayerStore()
 const { playing, currentSong } = storeToRefs(store)
 const { newSong } = store
+const { t } = useI18n()
 </script>

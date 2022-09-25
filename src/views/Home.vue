@@ -8,7 +8,7 @@
       ></div>
       <div class="container mx-auto">
         <div class="main-header-content text-white">
-          <h1 class="mb-5 text-5xl font-bold">{{ $t("home.listen") }}</h1>
+          <h1 class="mb-5 text-5xl font-bold">{{ t("home.listen") }}</h1>
           <p class="mx-auto w-full md:w-8/12">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
             et dolor mollis, congue augue non, venenatis elit. Nunc justo eros,
@@ -47,8 +47,10 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n"
 import SongItem from "@/components/SongItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
 const { songs } = useAudioData(true)
+const { t } = useI18n()
 </script>

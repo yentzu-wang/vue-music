@@ -94,7 +94,7 @@
         class="float-left -ml-6 mt-1 h-4 w-4 rounded"
       />
       <i18n-t class="inline-block" keypath="register.accept" tag="label">
-        <a href="#">{{ $t("register.tos") }}</a>
+        <a href="#">{{ t("register.tos") }}</a>
       </i18n-t>
       <ErrorMessage class="block text-red-600" name="tos" />
     </div>
@@ -109,6 +109,7 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n"
 import useRegister from "@/composables/useRegister"
 
 const schema = {
@@ -130,4 +131,5 @@ const {
   regAlertMsg,
   regInSubmission
 } = useRegister()
+const { t } = useI18n()
 </script>

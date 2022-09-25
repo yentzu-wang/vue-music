@@ -39,15 +39,32 @@
             </li>
           </template>
         </ul>
+        <ul class="ml-auto">
+          <li>
+            <a href="#" class="px-2 text-white" @click.prevent="changeLocale">
+              {{ currentLocale }}
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
   </header>
 </template>
 
 <script setup>
+import { computed } from "vue"
+import { useI18n } from "vue-i18n"
 import { useAuthModal } from "@/composables/useAuthModal"
 import { useAuth } from "@/composables/useAuth"
 
 const { toggleAuthModal } = useAuthModal()
 const { userLoggedIn, signOut } = useAuth()
+const { locale } = useI18n()
+const currentLocale = computed(() =>
+  locale.value === "en" ? "English" : "中文"
+)
+
+const changeLocale = () => {
+  locale.value = locale.value === "en" ? "zh-tw" : "en"
+}
 </script>
