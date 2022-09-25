@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="currentSong?.modifiedName"
-    class="fixed bottom-0 left-0 w-full bg-white px-4 pt-2 pb-6 shadow-lg"
+    class="fixed bottom-0 left-0 w-full bg-white px-4 pt-2 pb-6 shadow-lg-reverse"
   >
     <!-- Track Info -->
     <div class="text-center">
