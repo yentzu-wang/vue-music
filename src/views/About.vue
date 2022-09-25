@@ -1,5 +1,5 @@
 <template>
   About
   <br />
-  <BaseButton />
+  <!-- <BaseButton /> -->
 </template>
