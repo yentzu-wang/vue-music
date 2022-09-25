@@ -2,5 +2,8 @@
   "home": { "listen": "來首好歌!" },
   "song": {
     "commentCount": "沒有迴響 | {count} 則迴響 | {count} 則迴響"
+  },
+  "manage": {
+    "mySongs": "我的歌曲"
   }
 }

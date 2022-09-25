@@ -10,7 +10,7 @@
           class="relative flex flex-col rounded border border-gray-200 bg-white"
         >
           <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold">
-            <span class="card-title">My Songs</span>
+            <span class="card-title">{{ t("manage.mySongs") }}</span>
             <i
               class="fa fa-compact-disc float-right text-2xl text-green-400"
             ></i>
@@ -33,10 +33,12 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n"
 import Upload from "@/components/Upload.vue"
 import CompositionItem from "@/components/CompositionItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
 
 const { songs, updateSong, removeSong, addSong, updateUnsavedFlag } =
   useAudioData()
+const { t } = useI18n()
 </script>
