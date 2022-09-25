@@ -46,7 +46,7 @@
   </main>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useI18n } from "vue-i18n"
 import SongItem from "@/components/SongItem.vue"
 import { useAudioData } from "@/composables/useAudioData"
