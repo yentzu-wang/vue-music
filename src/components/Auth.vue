@@ -12,7 +12,6 @@
         <div class="fixed inset-0 transition-opacity">
           <div class="absolute inset-0 bg-gray-800 opacity-75"></div>
         </div>
-
         <!-- This element is to trick the browser into centering the modal contents. -->
         <span class="hidden sm:inline-block sm:h-screen sm:align-middle">
           &#8203;
@@ -34,7 +33,6 @@
                 <i class="fas fa-times"></i>
               </div>
             </div>
-
             <!-- Tabs -->
             <ul class="mb-4 flex flex-wrap">
               <li class="flex-auto text-center">
