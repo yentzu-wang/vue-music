@@ -23,7 +23,6 @@ describe("SongItem.vue", () => {
     })
 
     const compositionAuthor = wrapper.find(".text-gray-500")
-
     expect(compositionAuthor.text()).toBe(`Upload by ${song.displayName}`)
   })
 })
