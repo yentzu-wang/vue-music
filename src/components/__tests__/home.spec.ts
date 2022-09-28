@@ -1,7 +1,6 @@
 import { test, describe, expect, vi } from "vitest"
 import { shallowMount } from "@vue/test-utils"
 import { createI18n } from "vue-i18n"
-
 import Home from "@/views/Home.vue"
 import SongItem from "@/components/SongItem.vue"
 
